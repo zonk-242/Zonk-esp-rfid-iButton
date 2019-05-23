@@ -66,10 +66,9 @@ int rfidss;
 int readertype;
 int relayPin;
 
-/* // iButton : zonk
+// iButton : zonk
 OneWire  ds(rfidss);
 byte addr[8];
-*/
 
 #endif
 
