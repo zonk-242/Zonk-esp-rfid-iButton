@@ -91,7 +91,6 @@ bool ICACHE_FLASH_ATTR loadConfiguration()
 	else if (readertype == 7 )  // iButton
 	{
 		rfidss = hardware["sspin"];
-		setupiButton(rfidss);
 	}
 	#ifndef DEBUG
 	if (readertype>2) Serial.begin(9600);
