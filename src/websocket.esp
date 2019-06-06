@@ -100,6 +100,7 @@ void ICACHE_FLASH_ATTR procMsg(AsyncWebSocketClient *client, size_t sz)
 	}
 	else if (strcmp(command, "testrelay") == 0)
 	{
+		writeEvent("WARN", "sys", "Relay test activated.", "");  // added for "Use of Web Test Relay should be logged as an Event/Access. #268"
 		activateRelay = true;
 		previousMillis = millis();
 		ws.textAll("{\"command\":\"giveAccess\"}");

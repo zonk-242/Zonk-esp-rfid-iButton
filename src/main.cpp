@@ -22,7 +22,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
-#define VERSION "1.0.3"
+#define VERSION "1.0.2-zonk-01"
 
 #include "Arduino.h"
 #include <ESP8266WiFi.h>
@@ -38,7 +38,7 @@ SOFTWARE.
 #include <AsyncMqttClient.h>
 #include <Bounce2.h>
 
- // #define DEBUG
+#define DEBUG
 
 #ifdef OFFICIALBOARD
 
@@ -69,6 +69,7 @@ int relayPin;
 // iButton : zonk
 OneWire  ds(rfidss);
 byte addr[8];
+// 
 
 #endif
 
@@ -148,7 +149,7 @@ unsigned long activateTime;
 int timeZone;
 
 unsigned long nextbeat = 0;
-unsigned long interval = 1800;
+unsigned long interval = 1800; //MQTT issue #250 (was 1800)
 
 #include "log.esp"
 #include "mqtt.esp"
@@ -241,7 +242,7 @@ void ICACHE_RAM_ATTR loop()
 	previousLoopMillis = currentMillis;
 
 	openLockButton.update();
-	if (openLockButton.fell())
+	if (openlockpin != '\0' && openlockpin !=255 && openLockButton.fell())  //fix for 'Shorting gpio15 activates relay #267'
 	{
 #ifdef DEBUG
 		Serial.println("Button has been pressed");
